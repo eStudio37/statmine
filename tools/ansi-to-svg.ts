@@ -85,11 +85,25 @@ export function toSvg(input: string, title: string): string {
     const y = PAD_TOP + row * LINE_H + FONT_SIZE;
     for (const run of line.runs) {
       const xs: string[] = [];
-      let col = run.col;
+      let col = run.col, text = '';
       for (const ch of run.text) {
-        xs.push((PAD_X + col * CELL_W).toFixed(1));
+        const x = PAD_X + col * CELL_W;
+        xs.push(x.toFixed(1));
+        // The bar cells (▰ filled, ▱ empty) are drawn as shapes: fallback
+        // fonts draw them wider than a cell, so they would run together.
+        if (ch === '▰' || ch === '▱') {
+          const top = y - 10, bot = y - 1, lean = 2;
+          const pts = [[x + lean + 1, top], [x + CELL_W - 0.5, top], [x + CELL_W - lean - 1, bot], [x + 0.5, bot]]
+            .map(([px, py]) => `${px.toFixed(1)},${py}`).join(' ');
+          out.push(ch === '▰'
+            ? `<polygon points="${pts}" fill="${run.fg}"/>`
+            : `<polygon points="${pts}" fill="none" stroke="${run.fg}" stroke-width="1"/>`);
+          text += ' ';
+        } else text += ch;
         col += isWide(ch.codePointAt(0) ?? 0) ? 2 : 1;
       }
+      if (!text.trim()) continue;
+      run.text = text;
       const attrs = [`x="${xs.join(' ')}"`, `y="${y}"`, `fill="${run.fg}"`];
       if (run.bold) attrs.push('font-weight="bold"');
       if (run.dim) attrs.push('opacity="0.6"');

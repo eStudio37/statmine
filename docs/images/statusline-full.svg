@@ -7,53 +7,39 @@
 <circle cx="54" cy="14" r="5" fill="#22c55e"/>
 <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', 'Noto Sans Mono CJK JP', monospace" font-size="14" xml:space="preserve">
 <text x="16.0 32.8 41.2 49.6 58.0 66.4 74.8 83.2 91.6 100.0 108.4 116.8" y="54" fill="#34d399" font-weight="bold">米Claude Code</text>
-<text x="125.2 133.6" y="54" fill="#e2e8f0">  </text>
 <text x="142.0 150.4 158.8 167.2 175.6 184.0" y="54" fill="#e2e8f0" opacity="0.6">v2.0.0</text>
-<text x="192.4 200.8" y="54" fill="#e2e8f0">  </text>
 <text x="209.2 217.6 226.0 234.4 242.8 251.2 259.6 268.0 276.4 284.8 293.2 301.6 310.0 318.4 326.8 335.2 343.6 352.0 360.4 368.8 377.2 385.6 394.0 402.4 410.8 419.2" y="54" fill="#94a3b8">Thursday, October 22, 2026</text>
-<text x="427.6 436.0" y="54" fill="#e2e8f0">  </text>
 <text x="444.4 452.8 461.2 469.6 478.0" y="54" fill="#34d399" font-weight="bold">21:44</text>
 <text x="16.0 24.4" y="74" fill="#94a3b8">↑0</text>
-<text x="32.8" y="74" fill="#e2e8f0"> </text>
 <text x="41.2 49.6" y="74" fill="#94a3b8">↓3</text>
-<text x="58.0 66.4" y="74" fill="#e2e8f0">  </text>
 <text x="74.8 83.2 91.6 100.0 108.4 116.8 125.2 133.6 142.0 150.4 158.8 167.2 175.6 184.0 192.4 200.8 209.2 217.6 226.0 234.4 242.8 251.2 259.6 268.0 276.4 284.8 293.2 301.6 310.0 318.4 326.8 335.2 343.6 352.0 360.4 368.8 377.2 385.6 394.0" y="74" fill="#34d399">myapp--search → myapp ⎇ search-filters*</text>
-<text x="402.4 410.8" y="74" fill="#e2e8f0">  </text>
 <text x="419.2" y="74" fill="#94a3b8">⏱</text>
 <text x="436.0 444.4 452.8 461.2 469.6 478.0" y="74" fill="#e2e8f0"> 1h30m</text>
-<text x="16.0" y="94" fill="#6fdb6a">▰</text>
-<text x="24.4" y="94" fill="#94d753">▰</text>
-<text x="32.8" y="94" fill="#bad33c">▰</text>
-<text x="41.2" y="94" fill="#dfcf26">▰</text>
-<text x="49.6" y="94" fill="#fac917">▰</text>
-<text x="58.0" y="94" fill="#fabd1f">▰</text>
-<text x="66.4" y="94" fill="#faaf29">▰</text>
-<text x="74.8" y="94" fill="#334155">▱</text>
-<text x="83.2" y="94" fill="#334155">▱</text>
-<text x="91.6" y="94" fill="#334155">▱</text>
-<text x="100.0" y="94" fill="#334155">▱</text>
-<text x="108.4" y="94" fill="#334155">▱</text>
-<text x="116.8" y="94" fill="#334155">▱</text>
-<text x="125.2" y="94" fill="#334155">▱</text>
-<text x="133.6" y="94" fill="#e2e8f0"> </text>
+<polygon points="19.0,84 23.9,84 21.4,93 16.5,93" fill="#6fdb6a"/>
+<polygon points="27.4,84 32.3,84 29.8,93 24.9,93" fill="#94d753"/>
+<polygon points="35.8,84 40.7,84 38.2,93 33.3,93" fill="#bad33c"/>
+<polygon points="44.2,84 49.1,84 46.6,93 41.7,93" fill="#dfcf26"/>
+<polygon points="52.6,84 57.5,84 55.0,93 50.1,93" fill="#fac917"/>
+<polygon points="61.0,84 65.9,84 63.4,93 58.5,93" fill="#fabd1f"/>
+<polygon points="69.4,84 74.3,84 71.8,93 66.9,93" fill="#faaf29"/>
+<polygon points="77.8,84 82.7,84 80.2,93 75.3,93" fill="none" stroke="#334155" stroke-width="1"/>
+<polygon points="86.2,84 91.1,84 88.6,93 83.7,93" fill="none" stroke="#334155" stroke-width="1"/>
+<polygon points="94.6,84 99.5,84 97.0,93 92.1,93" fill="none" stroke="#334155" stroke-width="1"/>
+<polygon points="103.0,84 107.9,84 105.4,93 100.5,93" fill="none" stroke="#334155" stroke-width="1"/>
+<polygon points="111.4,84 116.3,84 113.8,93 108.9,93" fill="none" stroke="#334155" stroke-width="1"/>
+<polygon points="119.8,84 124.7,84 122.2,93 117.3,93" fill="none" stroke="#334155" stroke-width="1"/>
+<polygon points="128.2,84 133.1,84 130.6,93 125.7,93" fill="none" stroke="#334155" stroke-width="1"/>
 <text x="142.0 150.4 158.8" y="94" fill="#34d399" font-weight="bold">50%</text>
-<text x="167.2 175.6" y="94" fill="#e2e8f0">  </text>
 <text x="184.0 192.4 200.8 209.2" y="94" fill="#34d399">500k</text>
 <text x="217.6 226.0 234.4 242.8 251.2 259.6" y="94" fill="#94a3b8">/1000k</text>
-<text x="268.0 276.4" y="94" fill="#e2e8f0">  </text>
 <text x="284.8 293.2 301.6 310.0 318.4 326.8 335.2 343.6" y="94" fill="#94a3b8">Opus 5.5</text>
-<text x="352.0 360.4" y="94" fill="#e2e8f0">  </text>
 <text x="368.8 377.2 385.6 394.0 402.4 410.8" y="94" fill="#94a3b8">effort</text>
-<text x="419.2" y="94" fill="#e2e8f0"> </text>
 <text x="427.6 436.0 444.4 452.8" y="94" fill="#fbbf24">high</text>
 <text x="16.0 24.4" y="114" fill="#64748b">3.</text>
-<text x="32.8" y="114" fill="#e2e8f0"> </text>
 <text x="41.2 49.6 58.0 66.4 74.8 83.2 91.6 100.0 108.4 116.8 125.2 133.6 142.0 150.4 158.8 167.2 175.6 184.0 192.4 200.8 209.2 217.6 226.0 234.4 242.8 251.2 259.6 268.0 276.4 284.8 293.2 301.6 310.0 318.4 326.8 335.2" y="114" fill="#e2e8f0" opacity="0.6">Add a date filter to the search page</text>
 <text x="16.0 24.4" y="134" fill="#64748b">2.</text>
-<text x="32.8" y="134" fill="#e2e8f0"> </text>
 <text x="41.2 49.6 58.0 66.4 74.8 83.2 91.6 100.0 108.4 116.8 125.2 133.6 142.0" y="134" fill="#e2e8f0" opacity="0.6">now the tests</text>
 <text x="16.0 24.4" y="154" fill="#64748b">1.</text>
-<text x="32.8" y="154" fill="#e2e8f0"> </text>
 <text x="41.2 49.6 58.0 66.4 74.8 83.2 91.6 100.0 108.4 116.8 125.2 133.6 142.0 150.4 158.8 167.2 175.6 184.0 192.4 200.8 209.2 217.6 226.0 234.4 242.8" y="154" fill="#e2e8f0" opacity="0.6">Fix the flaky search test</text>
 </g>
 </svg>
