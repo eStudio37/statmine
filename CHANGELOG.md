@@ -6,6 +6,10 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- CI uses `actions/checkout` v7.0.1, pinned by commit SHA. v4 ran on Node 20, which GitHub is retiring.
+
 ## [2.0.0] - 2026-10-23
 
 This is the first tagged release. Version 0.1.0 was never tagged, and there was no 1.x release.
