@@ -1,6 +1,6 @@
 import { afterAll } from 'bun:test';
 import { spawnSync } from 'node:child_process';
-import { chmodSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { chmodSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -8,6 +8,17 @@ export const ROOT = join(import.meta.dir, '..');
 export const STATUSLINE = join(ROOT, 'scripts', 'statusline.sh');
 export const HOOK = join(ROOT, 'hooks', 'on-prompt.ts');
 export const SYNC = join(ROOT, 'hooks', 'sync.sh');
+
+/**
+ * The prompt hook's bun arguments, exactly as hooks/hooks.json ships them, so
+ * the tests run the hook the way Claude Code does.
+ */
+export function hookArgs(): string[] {
+  const cfg = JSON.parse(readFileSync(join(ROOT, 'hooks', 'hooks.json'), 'utf-8'));
+  const h = cfg.hooks.UserPromptSubmit[0].hooks[0];
+  if (h.command !== 'bun') throw new Error(`unexpected hook command ${h.command}`);
+  return (h.args as string[]).map((a) => a.replace('${CLAUDE_PLUGIN_ROOT}', ROOT));
+}
 
 const roots: string[] = [];
 afterAll(() => {

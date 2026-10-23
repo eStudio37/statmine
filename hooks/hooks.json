@@ -18,7 +18,7 @@
           {
             "type": "command",
             "command": "bun",
-            "args": ["--config=/dev/null", "run", "${CLAUDE_PLUGIN_ROOT}/hooks/on-prompt.ts"],
+            "args": ["--no-env-file", "--config=/dev/null", "run", "${CLAUDE_PLUGIN_ROOT}/hooks/on-prompt.ts"],
             "timeout": 10
           }
         ]

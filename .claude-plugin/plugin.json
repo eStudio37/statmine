@@ -1,6 +1,6 @@
 {
   "name": "statmine",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "description": "A statusline that shows where a commit will land, your context use, and your last three requests, in a full or compact view.",
   "author": { "name": "eStudio37" },
   "license": "MIT",

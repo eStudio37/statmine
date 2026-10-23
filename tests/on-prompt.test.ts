@@ -2,7 +2,7 @@ import { test, expect } from 'bun:test';
 import { spawnSync } from 'node:child_process';
 import { chmodSync, existsSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { HOOK, mkdirp, tempDir } from './helpers';
+import { hookArgs, mkdirp, tempDir } from './helpers';
 import { cleanSummary, isOperatorPrompt, stripChannels } from '../hooks/on-prompt';
 
 // The day as the hook and the statusline see it (local time). bun test runs
@@ -31,7 +31,7 @@ printf '%s\\n' ${JSON.stringify(output)}
 }
 
 function runHook(data: string, prompt: string, env: Record<string, string> = {}, sessionId = SID) {
-  const r = spawnSync(process.execPath, ['--config=/dev/null', 'run', HOOK], {
+  const r = spawnSync(process.execPath, hookArgs(), {
     input: JSON.stringify({ session_id: sessionId, prompt, hook_event_name: 'UserPromptSubmit' }),
     env: { ...process.env, CLAUDE_PLUGIN_DATA: data, CLAUDE_BIN: '/nonexistent/claude', ...env },
     encoding: 'utf-8',

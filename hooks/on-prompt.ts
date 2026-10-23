@@ -105,10 +105,30 @@ export function stripChannels(prompt: string): string | null {
   return kept.trim();
 }
 
-/** One line, as the statusline prints a row. */
+/**
+ * Control characters (C0, DEL, C1) and the bidi marks and overrides. Rows come
+ * from pastes, channel messages and model output, so they must never carry a
+ * terminal escape sequence or reorder the text around them. U+200D (the emoji
+ * joiner) and the rest of \p{Cf} stay. statusline.sh strips the same set.
+ */
+const UNSAFE = /[\p{Cc}\u200E\u200F\u202A-\u202E\u2066-\u2069]/gu;
+
+/** One line, as the statusline prints a row, with UNSAFE characters removed. */
 export function oneLine(s: string): string {
-  return s.replace(/[\t\n\r]/g, ' ').replace(/^[\s\u0085]+|[\s\u0085]+$/g, '');
+  return s
+    .replace(/[\t\n\r]/g, ' ')
+    .replace(UNSAFE, '')
+    .replace(/^\s+|\s+$/g, '');
 }
+
+/**
+ * Bun reads .env files from its working directory at startup, and the hook
+ * starts in the session's project folder. --no-env-file stops that. A process
+ * started without it may carry a project's CLAUDE_BIN or ANTHROPIC_BASE_URL,
+ * so it must start no worker and run no claude. Needs Bun 1.3.6 (tested).
+ */
+const NO_ENV_FILE = '--no-env-file';
+const envFileOff = () => process.execArgv.includes(NO_ENV_FILE);
 
 /** Cut to n characters (code points, so an emoji is never split). */
 function cut(s: string, n: number): string {
@@ -195,6 +215,7 @@ async function hookMode(): Promise<void> {
   pruneOldLogs();
 
   if (process.env.CLAUDE_PLUGIN_OPTION_SUMMARIES === 'false') return;
+  if (!envFileOff()) return; // this env may hold a project's .env (see NO_ENV_FILE)
   if (stripped === '' || [...row].length <= ROW_WIDTH) return; // fits a row: show it as typed
 
   const slot = claimSlot();
@@ -212,13 +233,15 @@ async function hookMode(): Promise<void> {
   // Detached worker, never awaited. process.execPath is the bun running this
   // hook, so the worker does not depend on PATH. --config=/dev/null and no
   // BUN_OPTIONS: a bunfig.toml in the session's folder must not preload code.
+  // --no-env-file and cwd in the data folder: the worker, and the claude it
+  // starts, never read the project's .env, files or CLAUDE.md.
   try {
     const env = { ...process.env };
     delete env.BUN_OPTIONS;
     const child = spawn(
       process.execPath,
-      ['--config=/dev/null', 'run', import.meta.path, '--worker', sessionId, jobPath, slot],
-      { detached: true, stdio: 'ignore', env },
+      [NO_ENV_FILE, '--config=/dev/null', 'run', import.meta.path, '--worker', sessionId, jobPath, slot],
+      { detached: true, stdio: 'ignore', env, cwd: dataDir() },
     );
     child.unref();
   } catch {
@@ -252,6 +275,7 @@ function workerMode(sessionId: string, jobPath: string, slot: string): void {
   try {
     const job = JSON.parse(readFileSync(jobPath, 'utf-8')) as { id?: string; text?: string };
     try { unlinkSync(jobPath); } catch { /* best-effort */ }
+    if (!envFileOff()) return; // see NO_ENV_FILE; the finally still frees the slot
     if (typeof job.id !== 'string' || typeof job.text !== 'string' || !job.text.trim()) return;
 
     const result = inference({

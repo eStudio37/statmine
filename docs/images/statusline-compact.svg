@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="864" height="74" viewBox="0 0 864 74" role="img" aria-label="statmine statusline, compact view">
+<title>statmine statusline, compact view</title>
+<rect width="864" height="74" rx="8" fill="#0f172a"/>
+<path d="M0 8a8 8 0 0 1 8-8h848a8 8 0 0 1 8 8v20H0z" fill="#1e293b"/>
+<circle cx="18" cy="14" r="5" fill="#ef4444"/>
+<circle cx="36" cy="14" r="5" fill="#f59e0b"/>
+<circle cx="54" cy="14" r="5" fill="#22c55e"/>
+<g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', 'Noto Sans Mono CJK JP', monospace" font-size="14" xml:space="preserve">
+<text x="16.0 32.8 41.2 49.6 58.0 66.4 74.8 83.2 91.6 100.0 108.4 116.8" y="54" fill="#34d399" font-weight="bold">米Claude Code</text>
+<text x="133.6 142.0 150.4 158.8 167.2" y="54" fill="#34d399" font-weight="bold">21:44</text>
+<text x="184.0" y="54" fill="#64748b">│</text>
+<text x="200.8 209.2" y="54" fill="#94a3b8">↑0</text>
+<text x="226.0 234.4" y="54" fill="#94a3b8">↓3</text>
+<text x="251.2 259.6 268.0 276.4 284.8 293.2 301.6 310.0 318.4 326.8 335.2 343.6 352.0 360.4 368.8 377.2 385.6 394.0 402.4 410.8 419.2 427.6 436.0 444.4 452.8 461.2 469.6 478.0 486.4 494.8 503.2" y="54" fill="#34d399">myapp--search ⎇ search-filters*</text>
+<text x="520.0" y="54" fill="#64748b">│</text>
+<polygon points="539.8,44 544.7,44 542.2,53 537.3,53" fill="#7fd960"/>
+<polygon points="548.2,44 553.1,44 550.6,53 545.7,53" fill="#b4d440"/>
+<polygon points="556.6,44 561.5,44 559.0,53 554.1,53" fill="#eace1f"/>
+<polygon points="565.0,44 569.9,44 567.4,53 562.5,53" fill="#fac01d"/>
+<polygon points="573.4,44 578.3,44 575.8,53 570.9,53" fill="#faaf29"/>
+<polygon points="581.8,44 586.7,44 584.2,53 579.3,53" fill="none" stroke="#334155" stroke-width="1"/>
+<polygon points="590.2,44 595.1,44 592.6,53 587.7,53" fill="none" stroke="#334155" stroke-width="1"/>
+<polygon points="598.6,44 603.5,44 601.0,53 596.1,53" fill="none" stroke="#334155" stroke-width="1"/>
+<polygon points="607.0,44 611.9,44 609.4,53 604.5,53" fill="none" stroke="#334155" stroke-width="1"/>
+<polygon points="615.4,44 620.3,44 617.8,53 612.9,53" fill="none" stroke="#334155" stroke-width="1"/>
+<text x="629.2 637.6 646.0 654.4" y="54" fill="#34d399">500k</text>
+<text x="662.8 671.2 679.6 688.0 696.4 704.8" y="54" fill="#94a3b8">/1000k</text>
+<text x="721.6" y="54" fill="#64748b">│</text>
+<text x="738.4 746.8 755.2 763.6 772.0 780.4 788.8 797.2" y="54" fill="#94a3b8">Opus 5.5</text>
+<text x="814.0 822.4 830.8 839.2" y="54" fill="#fbbf24">high</text>
+</g>
+</svg>

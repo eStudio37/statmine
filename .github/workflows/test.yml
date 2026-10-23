@@ -8,16 +8,53 @@ on:
 permissions:
   contents: read
 
+# Linux only. The tests pin the clock with a GNU `date` shim, so they do not
+# run on macOS as written. statmine is tested on Linux and WSL.
+
 jobs:
   test:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version: 1.3.6
       - name: Syntax-check the shell scripts
-        run: bash -n scripts/statusline.sh && bash -n hooks/sync.sh
+        run: git ls-files -z '*.sh' | xargs -0 -n1 bash -n
       - name: Run tests
         run: bun test tests
+
+  lint:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      SHELLCHECK_VERSION: v0.11.0
+      # sha256 of shellcheck-v0.11.0.linux.x86_64.tar.xz, as GitHub lists it
+      # for the release asset. Upstream publishes no checksum file.
+      SHELLCHECK_SHA256: 8c3be12b05d5c177a04c29e3c78ce89ac86f1595681cab149b65b97c4e227198
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: 1.3.6
+      - name: Install shellcheck
+        run: |
+          tarball="shellcheck-${SHELLCHECK_VERSION}.linux.x86_64.tar.xz"
+          curl -fsSLo "$RUNNER_TEMP/$tarball" \
+            "https://github.com/koalaman/shellcheck/releases/download/${SHELLCHECK_VERSION}/$tarball"
+          echo "${SHELLCHECK_SHA256}  $RUNNER_TEMP/$tarball" | sha256sum -c -
+          tar -xJf "$RUNNER_TEMP/$tarball" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/shellcheck-${SHELLCHECK_VERSION}" >> "$GITHUB_PATH"
+      - name: Shellcheck every shell script
+        run: |
+          shellcheck --version
+          git ls-files -z '*.sh' | xargs -0 shellcheck
+      - name: Install dev tools from the lockfile
+        run: bun install --frozen-lockfile
+      - name: Type-check
+        run: bun run typecheck
