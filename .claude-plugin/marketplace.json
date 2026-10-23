@@ -1,0 +1,12 @@
+{
+  "name": "statmine",
+  "owner": { "name": "eStudio37" },
+  "description": "statmine: a Claude Code statusline for commits, context and your last requests.",
+  "plugins": [
+    {
+      "name": "statmine",
+      "source": ".",
+      "description": "A statusline that shows where a commit will land, your context use, and your last three requests."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "name": "statmine",
+  "version": "0.1.0",
+  "description": "A statusline that shows where a commit will land, your context use, and your last three requests, in a full or compact view.",
+  "author": { "name": "eStudio37" },
+  "license": "MIT",
+  "homepage": "https://github.com/eStudio37/statmine",
+  "repository": "https://github.com/eStudio37/statmine",
+  "keywords": ["statusline", "git", "context", "worktree"],
+  "userConfig": {
+    "label": {
+      "type": "string",
+      "title": "Header label",
+      "description": "Text at the start of the statusline. Leave empty for none.",
+      "default": "米Claude Code"
+    },
+    "summaries": {
+      "type": "boolean",
+      "title": "Summarize long requests",
+      "description": "Ask a small model for a one-line summary of prompts too long for a row. Each long prompt costs one model call on your own Claude account.",
+      "default": true
+    },
+    "summary_model": {
+      "type": "string",
+      "title": "Summary model",
+      "description": "Model for summaries, as passed to claude --model.",
+      "default": "haiku"
+    }
+  }
+}
