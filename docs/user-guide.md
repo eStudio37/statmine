@@ -29,7 +29,7 @@ This guide covers installing it, reading it, changing it, and fixing it when som
 | `bash` | the statusline | `bash --version` |
 | `jq` | the statusline | `jq --version` |
 | `git` 2.31 or later | the git row | `git --version` |
-| [Bun](https://bun.sh) | the request rows | `bun --version` |
+| [Bun](https://bun.sh) 1.3.6 or later (needs `--no-env-file`) | the request rows | `bun --version` |
 | `claude` CLI on your `PATH` | summaries (optional) | `command -v claude` |
 
 Without `jq` the statusline shows only the time and a reminder to install it. Without Bun the request rows stay empty; everything else works.
@@ -68,9 +68,9 @@ Setup is needed once because a Claude Code plugin cannot set the statusline by i
 ## Reading the full view
 
 ```
-米Claude Code  v0.1.0  Thursday, October 22, 2026  21:44
+米Claude Code  v2.0.0  Thursday, October 22, 2026  21:44
 ↑0 ↓3  myapp--search → myapp ⎇ search-filters*  ⏱ 1h30m
-▰▰▱▱▱▱▱▱▱▱▱▱▱▱ 12%  120k/1000k  Opus 5.5  effort high
+▰▱▱▱▱▱▱▱▱▱▱▱▱▱ 12%  120k/1000k  Opus 5.5  effort high
 3. Add a date filter to the search page
 2. now the tests
 1. Fix the flaky search test
@@ -196,7 +196,7 @@ The command must point at `.../plugins/data/statmine-statmine/statusline.sh`.
 
 **The statusline says "install jq".** Install `jq` with your package manager.
 
-**There are no request rows.** Check that Bun is on your `PATH` (`command -v bun`): Claude Code starts the prompt hook as `bun`, and without it the hook cannot run (Claude Code may also show a hook error on each prompt). Rows appear for prompts typed after the plugin loaded, in the current session only. A new session starts with none.
+**There are no request rows.** Check that Bun is on your `PATH` (`command -v bun`): Claude Code starts the prompt hook as `bun`, and without it the hook cannot run (Claude Code may also show a hook error on each prompt). Check that it is 1.3.6 or later (`bun --version`). A Bun without the `--no-env-file` flag fails the hook on every prompt; 1.3.6 is the version tested. Rows appear for prompts typed after the plugin loaded, in the current session only. A new session starts with none.
 
 **Long prompts never get a summary.**
 - Check that summaries are on in the options.

@@ -92,7 +92,7 @@ All files live in the plugin data folder, `~/.claude/plugins/data/statmine-statm
 **`config.json`**, written by `sync.sh`:
 
 ```json
-{"label":"米Claude Code","version":"0.1.0"}
+{"label":"米Claude Code","version":"2.0.0"}
 ```
 
 An unset label option becomes the default label. A label option set to an empty string becomes `""` and the statusline shows no label.
@@ -122,7 +122,7 @@ A prompt gets a summary when summaries are on and its one-line text is longer th
 
 1. Claims one of 3 fixed slots by creating its folder (`mkdir` is atomic, so two hooks cannot claim the same slot). A slot older than 2 minutes is from a dead worker and is reclaimed. With all 3 taken, the prompt is not summarized.
 2. Writes the full text to `.jobs/<id>.json`, so it never appears in a process's arguments.
-3. Starts a detached worker with the same Bun binary (`process.execPath`), `--config=/dev/null`, and `BUN_OPTIONS` removed, so a `bunfig.toml` in your project cannot load code into it.
+3. Starts a detached worker with the same Bun binary (`process.execPath`), `--no-env-file`, `--config=/dev/null`, and `BUN_OPTIONS` removed, in the data folder (`cwd`). So a `bunfig.toml` or `.env` in your project cannot load code or settings into it. The hook itself also runs with `--no-env-file` (see `hooks/hooks.json`), and it starts no worker if it was started without that flag.
 4. Returns. The prompt is never delayed or changed.
 
 The worker deletes the job file, then runs:
@@ -160,6 +160,9 @@ Color rules, in order: red when repo differs from the session repo; amber when H
 - **No chat ids on disk.** Channel wrappers are stripped before anything is written or sent to a model.
 - **No prompt text in arguments.** Prompt text reaches the worker through a `0600` job file and `claude` through stdin, never argv, which other accounts on a shared machine can read with `ps`.
 - **No recursion.** The summarizer's `claude` session runs with no tools and no setting sources, and is marked with `STATMINE_WORKER=1`, which stops statmine's own hook in it.
+- **No project `.env`.** Bun reads `.env` files from its working directory, and the hook starts in the project folder. The hook and the worker run with `--no-env-file`, so a project's `.env` cannot set `CLAUDE_BIN` or `ANTHROPIC_BASE_URL`. The worker and its `claude` start in the data folder. A hook or worker started without the flag makes no summary. This needs Bun 1.3.6 (tested); an older Bun was not checked.
+- **No commands from git config.** The statusline runs git in the session's folder at every redraw. Every call passes `-c core.fsmonitor=false`. `git status` also passes `--ignore-submodules=dirty` and blanks each filter `clean` and `process` command that is not from your global or system config. Remaining risk: git still reads the folder's config, and a later git may add a config key that runs a command during these calls.
+- **No terminal escapes.** Control characters (C0, DEL, C1) and the bidi marks and overrides are removed from prompt rows, summaries, folder, repo and branch names, the label, the model and the effort, both when the hook writes and when the statusline reads. Only the statusline's own colour codes reach the terminal.
 - **Bounded growth.** Prompt logs older than 7 days are deleted; summaries keep the last 200.
 - **Session isolation.** The statusline shows rows only for its own session id, and shows none when the id is missing.
 - **Fail-soft.** Every part exits 0 on bad input or missing data. A broken statmine leaves Claude Code running, with fewer rows.
@@ -192,5 +195,6 @@ When changing the row width, change it in both places: `ROW_WIDTH` in `on-prompt
 ## Releasing
 
 1. Bump `version` in `.claude-plugin/plugin.json`. Users see it in the header after updating.
-2. Run the tests and `claude plugin validate .`.
-3. Commit, tag (`v0.1.0`) and push. Users get it with `claude plugin update statmine@statmine`.
+2. Update `CHANGELOG.md`: move the `[Unreleased]` entries under a new version heading with the date, and update the compare links at the bottom.
+3. Run the tests and `claude plugin validate .`.
+4. Commit, tag (`v2.0.0`) and push. Users get it with `claude plugin update statmine@statmine`.
