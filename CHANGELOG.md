@@ -16,6 +16,7 @@ This is the first tagged release. Version 0.1.0 was never tagged, and there was 
 - A how-it-works document (`docs/how-it-works.md`): design, data flow, file formats, the prompt rule, summaries, the commit cell, security properties, limits, development and releases.
 - This changelog, `CONTRIBUTING.md`, `.editorconfig`, and a bug report form that links Claude Code's own tracker.
 - CI checks: shellcheck 0.11.0 on every `.sh` file (checksum-verified download) and a TypeScript check with `typescript` 6.0.3 and `@types/bun` 1.3.6, both pinned as dev dependencies. They are dev tools only; the plugin loads no package.
+- Color images of both views in the README (`docs/images/`), rendered from the real script by `tools/render-demo.sh`.
 - A security review, `docs/security-review-2.0.0.md`, and 11 security tests in `tests/security.test.ts`.
 
 ### Changed

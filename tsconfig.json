@@ -10,5 +10,5 @@
     "noEmit": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["hooks/**/*.ts", "tests/**/*.ts"]
+  "include": ["hooks/**/*.ts", "tests/**/*.ts", "tools/**/*.ts"]
 }

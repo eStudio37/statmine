@@ -10,8 +10,8 @@ Branch `release/2.0.0`, checked on 2026-10-23. Each success criterion has its ev
 | 2 | bun test, bash -n, shellcheck and the TypeScript check pass | Pass | See "Check output" below: 43 pass, 0 fail; `bash -n` exit 0; shellcheck 0.11.0 exit 0; `tsc --noEmit` exit 0 |
 | 3 | `claude plugin validate` passes | Pass | "Validation passed" |
 | 4 | A sample payload renders both views and exits 0 | Pass | See "Render" below |
-| 5 | `0.1.0` appears only in CHANGELOG history | Pass | 3 hits, all in `CHANGELOG.md` |
-| 6 | WHAT 4-6 files and sections exist | Pass | README: CI and licence badges, both views, Features, What statmine can access, Troubleshooting, Development. `CONTRIBUTING.md`, `.editorconfig`, `.github/ISSUE_TEMPLATE/bug_report.yml` and `config.yml`. Platform: "Linux and WSL. macOS has not been tested." in the README, with the reason in `test.yml` |
+| 5 | The old version number appears only in CHANGELOG history | Pass | 3 hits, all in `CHANGELOG.md` |
+| 6 | WHAT 4-6 files and sections exist | Pass | README: CI and licence badges, both views as color images (`docs/images/`, from `tools/render-demo.sh`) with text copies, Features, What statmine can access, Troubleshooting, Development. `CONTRIBUTING.md`, `.editorconfig`, `.github/ISSUE_TEMPLATE/bug_report.yml` and `config.yml`. Platform: "Linux and WSL. macOS has not been tested." in the README, with the reason in `test.yml` |
 | 7 | Clean tree on `release/2.0.0`; tag `v2.0.0` on its last commit | Pass | `git status` is clean after the last commit; `git tag --points-at HEAD` shows `v2.0.0` |
 
 ## Check output
@@ -65,8 +65,9 @@ Each decision gate was settled with quack at medium effort, or by the orchestrat
 | M1 fix, part in `hooks.json` | The flag in `hooks.json`, plus a code guard: no worker and no `claude` unless `--no-env-file` is set | Either half alone was shown to be insufficient |
 | M2, which filter drivers to blank | Every filter outside the global and system config | Keeps git-lfs and other user filters, so no false `*` |
 | Minimum Bun | "1.3.6 or later" | Only 1.3.6 was tested |
-| Changelog links for 0.1.0 | A commit link; 0.1.0 is described as never tagged | No v0.1.0 tag exists. Tagging it later is Manos's choice |
+| Changelog links for the first version | A commit link; that version is described as never tagged | No tag exists for it. Tagging it later is Manos's choice |
 | README render | Real output, with the clock pinned | The old sample's bar did not match the script; the user guide now matches too |
+| README images (asked for by Manos after the first pass) | SVG made from the script's real ANSI output, by `tools/render-demo.sh`; text copies kept in a collapsed block | Regenerated from the code, sharp at any size, no new dependency. A screenshot of a live terminal would need Manos's machine |
 
 ## Not fixed in 2.0.0 (backlog)
 

@@ -184,7 +184,10 @@ Color rules, in order: red when repo differs from the session repo; amber when H
 bun test tests            # black-box tests
 claude plugin validate .  # manifest, marketplace and directory checks
 claude --plugin-dir .     # a session with this checkout loaded
+bash tools/render-demo.sh # redraw the README images in docs/images/
 ```
+
+Run `tools/render-demo.sh` after a change to what the statusline prints, so the README images stay true. It builds a throwaway sample repo, pins the clock, runs the real script in both views, and turns the colored output into SVG with `tools/ansi-to-svg.ts`.
 
 The tests run the real scripts as child processes, with a temporary data folder, a `date` shim that pins the clock, temporary git repositories, and a stub in place of `claude` that records its arguments and stdin. They never call a real model.
 

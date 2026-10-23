@@ -9,22 +9,31 @@
 
 The full view:
 
+<p align="center"><img src="docs/images/statusline-full.svg" alt="statmine full view: header with label, version, date and time; the git row; the context bar with model and effort; and the last three requests"></p>
+
+The compact view, on one line:
+
+<p align="center"><img src="docs/images/statusline-compact.svg" alt="statmine compact view: label and time, git, context bar with tokens, model and effort on one line"></p>
+
+Both images are the real output of `scripts/statusline.sh` for a sample session, made by `bash tools/render-demo.sh`.
+
+<details>
+<summary>The same views as text</summary>
+
 ```text
 米Claude Code  v2.0.0  Thursday, October 22, 2026  21:44
 ↑0 ↓3  myapp--search → myapp ⎇ search-filters*  ⏱ 1h30m
-▰▱▱▱▱▱▱▱▱▱▱▱▱▱ 12%  120k/1000k  Opus 5.5  effort high
+▰▰▰▰▰▰▰▱▱▱▱▱▱▱ 50%  500k/1000k  Opus 5.5  effort high
 3. Add a date filter to the search page
 2. now the tests
 1. Fix the flaky search test
 ```
 
-The compact view, on one line:
-
 ```text
-米Claude Code 21:44 │ ↑0 ↓3 myapp--search ⎇ search-filters* │ ▰▱▱▱▱▱▱▱▱▱ 120k/1000k │ Opus 5.5 high
+米Claude Code 21:44 │ ↑0 ↓3 myapp--search ⎇ search-filters* │ ▰▰▰▰▰▱▱▱▱▱ 500k/1000k │ Opus 5.5 high
 ```
 
-Both were printed by `scripts/statusline.sh` from a sample session, with the colors removed. In your terminal the commit cell, the bar and the effort are colored.
+</details>
 
 ## Features
 
