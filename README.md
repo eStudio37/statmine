@@ -11,99 +11,47 @@ A statusline for Claude Code that answers three questions at a glance: where wil
 1. Fix the flaky search test
 ```
 
-A compact view fits it on one line:
+Or on one line, with `/statmine:mode compact`:
 
 ```
 米Claude Code 21:44 │ ↑0 ↓3 myapp--search ⎇ search-filters* │ ▰▱▱▱▱▱▱▱▱▱ 120k/1000k │ Opus 5.5 high
 ```
 
-## What it shows
+- **Where a commit lands:** folder, repo and branch, green when they agree, amber when a worktree folder has another branch checked out, red when a commit would land in a different repo than the session's.
+- **Commit counts:** unpushed (`↑`) and branch-only (`↓`), with `⊘` when there is no remote or nothing committed yet.
+- **Context:** window use, tokens, model and effort.
+- **Your last three requests:** only what you typed, with one-line summaries of long prompts.
 
-**Where a commit lands.** `folder → repo ⎇ branch`, colored by how well they agree:
-
-| Color | Meaning |
-|---|---|
-| green | A commit lands in this session's repo, on the branch the folder name suggests. |
-| amber | Same repo, but a `<repo>--<name>` worktree folder has a different branch checked out, or HEAD is detached. |
-| red | A commit from here lands in a different repo than the one the session started in. |
-
-A `*` after the branch means uncommitted changes.
-
-**Two slots before it.** The left slot is the remote: `↑N` commits not pushed yet, or `⊘` when the repo has no remote. The right slot is local: `↓N` commits on this branch that `main` (or `master`) does not have, or `⊘` when there are none. Both use local refs only, so `↑N` is as of your last `git fetch`.
-
-**Context.** A bar and percent of the context window, tokens used out of the window, the model, and the reasoning effort.
-
-**Your last three requests.** Numbered so the newest, at the bottom, is `1.`. Only what you typed counts: task notifications, agent messages and bare slash commands such as `/login` are left out. Short prompts show as typed. Long ones get a one-line summary from a small model, which replaces the cut-off text a few seconds later.
+Everything stays on your machine, readable only by you. Summaries, which you can turn off, go through your own `claude` CLI.
 
 ## Requirements
 
-- Claude Code with plugin support
-- `bash`, `jq`, and `git` 2.31 or later
-- [Bun](https://bun.sh) on your `PATH`, for the request rows
-- The `claude` CLI on your `PATH`, for summaries (optional)
-
-Tested on Linux. macOS should work but has not been tested yet.
+`bash`, `jq`, `git` 2.31+, and [Bun](https://bun.sh) on your `PATH`; the `claude` CLI for summaries. Tested on Linux.
 
 ## Install
 
-In a Claude Code session:
+Run each line as its own prompt in Claude Code:
 
 ```
 /plugin marketplace add eStudio37/statmine
+```
+
+```
 /plugin install statmine@statmine
 ```
 
-Restart Claude Code (or run `/reload-plugins`), then run:
+Then `/reload-plugins` (or restart) and:
 
 ```
 /statmine:setup
 ```
 
-A plugin cannot set the statusline on its own, so setup does it: it backs up `~/.claude/settings.json`, then points `statusLine` at the statmine script with a 10 second refresh. It asks first if you already have a statusline.
+Setup backs up `~/.claude/settings.json` and points your statusline at statmine. It asks before replacing an existing one.
 
-## Use
+## Documentation
 
-| Command | Does |
-|---|---|
-| `/statmine:mode compact` | One-line view |
-| `/statmine:mode full` | Full view (the default) |
-| `/statmine:mode` | Shows the current view |
-
-## Options
-
-Change these with `/plugin configure statmine@statmine` or in `/config`. They apply from the next session.
-
-| Option | Default | |
-|---|---|---|
-| Header label | `米Claude Code` | Text at the start of the statusline. Empty for none. |
-| Summarize long requests | on | One model call per long prompt, on your own Claude account. |
-| Summary model | `haiku` | Any value `claude --model` accepts. |
-
-## What it stores, and where
-
-Everything stays on your machine, in the plugin's data folder (`~/.claude/plugins/data/statmine-statmine/` for a marketplace install), readable only by you (folders `0700`, files `0600`):
-
-- `prompts/<day>.jsonl`: each prompt you type, as one line cut to 200 characters. Channel wrappers (for example Telegram's chat ids) are removed first. Days older than 7 are deleted.
-- `summaries.jsonl`: the last 200 summaries.
-- `statusline.sh`, `config.json`, `mode`: the script and your settings, refreshed at each session start.
-
-When summaries are on, the text of a long prompt is sent to the summary model through your own `claude` CLI. Turn them off to keep every prompt local.
-
-## Uninstall
-
-```
-/plugin uninstall statmine@statmine
-```
-
-Then remove the `statusLine` entry from `~/.claude/settings.json`, or restore the backup setup made (`settings.json.statmine-backup-<time>`).
-
-## Develop
-
-```
-bun test tests
-claude plugin validate .
-claude --plugin-dir .
-```
+- [User guide](docs/user-guide.md): reading every part of the statusline, options, your data, troubleshooting, uninstall.
+- [How it works](docs/how-it-works.md): design, data flow, file formats, rules, security properties, limits, development and releases.
 
 ## License
 

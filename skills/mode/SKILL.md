@@ -15,8 +15,7 @@ Requested view: `$ARGUMENTS`
 - **compact:** one line: label and time, git, context bar with tokens, model
   and effort.
 
-Data folder: `${CLAUDE_PLUGIN_DATA}` (if this reads as a literal
-`${CLAUDE_PLUGIN_DATA}`, find it with `ls -d ~/.claude/plugins/data/statmine*/`).
+Data folder: `${CLAUDE_PLUGIN_DATA}`
 
 ## Steps
 
@@ -24,5 +23,6 @@ Data folder: `${CLAUDE_PLUGIN_DATA}` (if this reads as a literal
    or `full` when the file is missing. Stop.
 2. Lowercase and trim the argument. Accept `full` or `compact` only; anything
    else, name the two values and stop.
-3. Write it: `printf '%s\n' <view> > "<data folder>/mode"`.
+3. Write it, private like the rest of the folder:
+   `umask 077; printf '%s\n' <view> > "<data folder>/mode"`.
 4. Report in one line: the new view, shown within 10 seconds.

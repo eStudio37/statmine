@@ -17,10 +17,7 @@ Data folder: `${CLAUDE_PLUGIN_DATA}`
 
 ## Steps
 
-1. **Find the data folder.** Use the data folder above. If it still reads as a
-   literal `${CLAUDE_PLUGIN_DATA}` (not substituted), find it with
-   `ls -d ~/.claude/plugins/data/statmine*/` and use the one match. More than one
-   match: ask the user which. Call it D, as an absolute path.
+1. **Name the data folder.** Call the data folder above D.
 2. **Check the tools.** Run `command -v bash jq git bun claude`. Report any that
    are missing: bash, jq and git are needed for the statusline, bun for the
    request rows, claude for summaries. Continue unless jq is missing.
